@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeetaChaudhari | Shop</title>
+
+<title>Shop | GeetaChaudhari</title>
 
 <style>
 
@@ -13,13 +16,8 @@ font-family:Arial, Helvetica, sans-serif;
 background:#FFF5E1;
 }
 
-/* BANNER */
-.banner img {
-width:100%;
-display:block;
-}
-
 /* MENU */
+
 .menu {
 background:#D4AF37;
 text-align:center;
@@ -33,7 +31,19 @@ color:black;
 font-weight:bold;
 }
 
-/* CATEGORY FILTER */
+/* PAGE TITLE */
+
+.page-title {
+text-align:center;
+padding:30px 20px 10px;
+}
+
+.page-title h1 {
+color:#800000;
+}
+
+/* CATEGORY FILTERS */
+
 .filters {
 text-align:center;
 padding:20px;
@@ -50,6 +60,7 @@ cursor:pointer;
 }
 
 /* PRODUCTS */
+
 .products {
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -74,6 +85,7 @@ border-radius:8px;
 
 .price {
 font-weight:bold;
+margin-top:5px;
 }
 
 .whatsapp {
@@ -87,6 +99,7 @@ text-decoration:none;
 }
 
 /* FLOATING WHATSAPP */
+
 .float-whatsapp {
 position:fixed;
 bottom:20px;
@@ -101,6 +114,7 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* INSTAGRAM */
+
 .instagram {
 text-align:center;
 padding:30px;
@@ -113,6 +127,7 @@ text-decoration:none;
 }
 
 /* FOOTER */
+
 .footer {
 background:#800000;
 color:white;
@@ -125,19 +140,31 @@ padding:15px;
 <script>
 
 function filterProducts(category) {
+
 let cards = document.querySelectorAll('.card');
 
 cards.forEach(card => {
+
 if(category === 'all') {
+
 card.style.display = 'block';
+
 }
+
 else if(card.classList.contains(category)) {
+
 card.style.display = 'block';
+
 }
+
 else {
+
 card.style.display = 'none';
+
 }
+
 });
+
 }
 
 </script>
@@ -146,78 +173,116 @@ card.style.display = 'none';
 
 <body>
 
-<!-- BANNER -->
-<div class="banner">
-<img src="banner.jpg">
-</div>
-
 <!-- MENU -->
+
 <div class="menu">
+
 <a href="index.html">Home</a>
 <a href="shop.html">Shop</a>
 <a href="about.html">About</a>
 <a href="contact.html">Contact</a>
+
 </div>
 
-<!-- FILTERS -->
+<!-- PAGE TITLE -->
+
+<div class="page-title">
+
+<h1>Our Collection</h1>
+
+<p>Browse our handcrafted ethnic wear</p>
+
+</div>
+
+<!-- FILTER BUTTONS -->
+
 <div class="filters">
+
 <button onclick="filterProducts('all')">All</button>
 <button onclick="filterProducts('saree')">Saree</button>
 <button onclick="filterProducts('salwar')">Salwar</button>
 <button onclick="filterProducts('lehenga')">Lehenga</button>
 <button onclick="filterProducts('kurti')">Kurti</button>
+
 </div>
 
 <!-- PRODUCTS -->
+
 <div class="products">
 
 <div class="card saree">
 <img src="saree.jpg">
 <h3>Lotus Saree</h3>
 <div class="price">₹2499</div>
-<a class="whatsapp" href="https://wa.me/919420873535">Order</a>
+<a class="whatsapp"
+href="https://wa.me/919420873535">
+Order
+</a>
 </div>
 
 <div class="card salwar">
 <img src="salwar.jpg">
 <h3>Salwar Suit</h3>
 <div class="price">₹1999</div>
-<a class="whatsapp" href="https://wa.me/919420873535">Order</a>
+<a class="whatsapp"
+href="https://wa.me/919420873535">
+Order
+</a>
 </div>
 
 <div class="card lehenga">
 <img src="lehenga.jpg">
 <h3>Royal Lehenga</h3>
 <div class="price">₹4999</div>
-<a class="whatsapp" href="https://wa.me/919420873535">Order</a>
+<a class="whatsapp"
+href="https://wa.me/919420873535">
+Order
+</a>
 </div>
 
 <div class="card kurti">
 <img src="kurti.jpg">
 <h3>Daily Kurti</h3>
 <div class="price">₹999</div>
-<a class="whatsapp" href="https://wa.me/919420873535">Order</a>
+<a class="whatsapp"
+href="https://wa.me/919420873535">
+Order
+</a>
 </div>
 
 </div>
 
 <!-- INSTAGRAM -->
+
 <div class="instagram">
+
 <p>Follow us on Instagram:</p>
+
 <a href="https://instagram.com/geetachaudhari_official" target="_blank">
+
 @geetachaudhari_official
+
 </a>
+
 </div>
 
 <!-- FLOATING WHATSAPP -->
-<a class="float-whatsapp" href="https://wa.me/919420873535">
+
+<a class="float-whatsapp"
+href="https://wa.me/919420873535">
+
 WhatsApp
+
 </a>
 
 <!-- FOOTER -->
+
 <div class="footer">
+
 © 2026 GeetaChaudhari
+
 </div>
 
 </body>
+
 </html>
