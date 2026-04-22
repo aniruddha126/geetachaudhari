@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -17,7 +16,6 @@ background:#FFF5E1;
 }
 
 /* MENU */
-
 .menu {
 background:#D4AF37;
 text-align:center;
@@ -32,7 +30,6 @@ font-weight:bold;
 }
 
 /* PAGE TITLE */
-
 .page-title {
 text-align:center;
 padding:30px 20px 10px;
@@ -42,25 +39,7 @@ padding:30px 20px 10px;
 color:#800000;
 }
 
-/* FILTER BUTTONS */
-
-.filters {
-text-align:center;
-padding:20px;
-}
-
-.filters button {
-padding:10px 16px;
-margin:5px;
-border:none;
-background:#800000;
-color:white;
-border-radius:6px;
-cursor:pointer;
-}
-
 /* PRODUCTS */
-
 .products {
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -74,6 +53,7 @@ padding:15px;
 border-radius:10px;
 text-align:center;
 box-shadow:0 4px 8px rgba(0,0,0,0.1);
+position:relative;
 }
 
 .card img {
@@ -84,9 +64,35 @@ border-radius:8px;
 cursor:pointer;
 }
 
+/* NEW TAG */
+.new-tag {
+position:absolute;
+top:10px;
+left:10px;
+background:#800000;
+color:white;
+padding:5px 10px;
+border-radius:5px;
+font-size:12px;
+}
+
 .price {
 font-weight:bold;
 margin-top:5px;
+}
+
+/* STOCK */
+.stock {
+font-size:13px;
+margin-top:5px;
+}
+
+.in-stock {
+color:green;
+}
+
+.out-stock {
+color:red;
 }
 
 .whatsapp {
@@ -99,8 +105,7 @@ border-radius:6px;
 text-decoration:none;
 }
 
-/* POPUP MODAL */
-
+/* MODAL */
 .modal {
 display:none;
 position:fixed;
@@ -109,15 +114,39 @@ left:0;
 top:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.85);
 }
 
 .modal-content {
-display:block;
-margin:auto;
-margin-top:5%;
-max-width:80%;
-max-height:80%;
+background:white;
+margin:5% auto;
+padding:20px;
+border-radius:10px;
+width:90%;
+max-width:600px;
+text-align:center;
+}
+
+.modal-img {
+width:100%;
+max-height:400px;
+object-fit:contain;
+border-radius:8px;
+}
+
+.thumbnail-row {
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:10px;
+}
+
+.thumbnail-row img {
+width:60px;
+height:60px;
+object-fit:cover;
+cursor:pointer;
+border-radius:5px;
 }
 
 .close {
@@ -130,8 +159,19 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* FLOAT WHATSAPP */
+/* SIZE SELECT */
+.size-select {
+margin-top:15px;
+padding:8px;
+}
 
+.description {
+margin-top:10px;
+font-size:14px;
+color:#555;
+}
+
+/* FLOAT WHATSAPP */
 .float-whatsapp {
 position:fixed;
 bottom:20px;
@@ -145,7 +185,6 @@ font-weight:bold;
 }
 
 /* FOOTER */
-
 .footer {
 background:#800000;
 color:white;
@@ -157,50 +196,24 @@ padding:15px;
 
 <script>
 
-/* FILTER */
+function openModal(src, desc) {
 
-function filterProducts(category) {
+let modal=document.getElementById("modal");
+let modalImg=document.getElementById("modal-img");
+let modalDesc=document.getElementById("modal-desc");
 
-let cards = document.querySelectorAll('.card');
-
-cards.forEach(card => {
-
-if(category === 'all') {
-
-card.style.display = 'block';
+modal.style.display="block";
+modalImg.src=src;
+modalDesc.innerText=desc;
 
 }
 
-else if(card.classList.contains(category)) {
-
-card.style.display = 'block';
-
-}
-
-else {
-
-card.style.display = 'none';
-
-}
-
-});
-
-}
-
-/* IMAGE POPUP */
-
-function openModal(src) {
-
-document.getElementById("modal").style.display="block";
-
+function changeImage(src) {
 document.getElementById("modal-img").src=src;
-
 }
 
 function closeModal() {
-
 document.getElementById("modal").style.display="none";
-
 }
 
 </script>
@@ -212,86 +225,66 @@ document.getElementById("modal").style.display="none";
 <!-- MENU -->
 
 <div class="menu">
-
 <a href="index.html">Home</a>
 <a href="shop.html">Shop</a>
 <a href="about.html">About</a>
 <a href="contact.html">Contact</a>
-
 </div>
 
 <!-- TITLE -->
 
 <div class="page-title">
-
 <h1>Our Collection</h1>
-
 <p>Browse our handcrafted ethnic wear</p>
-
-</div>
-
-<!-- FILTERS -->
-
-<div class="filters">
-
-<button onclick="filterProducts('all')">All</button>
-<button onclick="filterProducts('saree')">Saree</button>
-<button onclick="filterProducts('salwar')">Salwar</button>
-<button onclick="filterProducts('lehenga')">Lehenga</button>
-<button onclick="filterProducts('kurti')">Kurti</button>
-
 </div>
 
 <!-- PRODUCTS -->
 
 <div class="products">
 
-<div class="card saree">
+<div class="card">
+<span class="new-tag">NEW</span>
 <img src="saree.jpg"
-onclick="openModal(this.src)">
+onclick="openModal('saree.jpg','Elegant lotus-inspired saree perfect for festive wear.')">
 <h3>Lotus Saree</h3>
 <div class="price">₹2499</div>
+<div class="stock in-stock">In Stock</div>
 <a class="whatsapp"
 href="https://wa.me/919420873535"
-target="_blank">
-Order
-</a>
+target="_blank">Order</a>
 </div>
 
-<div class="card salwar">
+<div class="card">
 <img src="salwar.jpg"
-onclick="openModal(this.src)">
+onclick="openModal('salwar.jpg','Comfortable salwar suit suitable for daily and festive wear.')">
 <h3>Salwar Suit</h3>
 <div class="price">₹1999</div>
+<div class="stock in-stock">In Stock</div>
 <a class="whatsapp"
 href="https://wa.me/919420873535"
-target="_blank">
-Order
-</a>
+target="_blank">Order</a>
 </div>
 
-<div class="card lehenga">
+<div class="card">
 <img src="lehenga.jpg"
-onclick="openModal(this.src)">
+onclick="openModal('lehenga.jpg','Royal lehenga designed for weddings and grand occasions.')">
 <h3>Royal Lehenga</h3>
 <div class="price">₹4999</div>
+<div class="stock out-stock">Limited Stock</div>
 <a class="whatsapp"
 href="https://wa.me/919420873535"
-target="_blank">
-Order
-</a>
+target="_blank">Order</a>
 </div>
 
-<div class="card kurti">
+<div class="card">
 <img src="kurti.jpg"
-onclick="openModal(this.src)">
+onclick="openModal('kurti.jpg','Daily wear kurti offering comfort and style.')">
 <h3>Daily Kurti</h3>
 <div class="price">₹999</div>
+<div class="stock in-stock">In Stock</div>
 <a class="whatsapp"
 href="https://wa.me/919420873535"
-target="_blank">
-Order
-</a>
+target="_blank">Order</a>
 </div>
 
 </div>
@@ -300,11 +293,30 @@ Order
 
 <div id="modal" class="modal">
 
-<span class="close"
-onclick="closeModal()">&times;</span>
+<span class="close" onclick="closeModal()">&times;</span>
 
-<img class="modal-content"
-id="modal-img">
+<div class="modal-content">
+
+<img class="modal-img" id="modal-img">
+
+<div class="thumbnail-row">
+<img src="saree.jpg" onclick="changeImage(this.src)">
+<img src="salwar.jpg" onclick="changeImage(this.src)">
+<img src="lehenga.jpg" onclick="changeImage(this.src)">
+<img src="kurti.jpg" onclick="changeImage(this.src)">
+</div>
+
+<select class="size-select">
+<option>Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<p id="modal-desc" class="description"></p>
+
+</div>
 
 </div>
 
@@ -313,19 +325,14 @@ id="modal-img">
 <a class="float-whatsapp"
 href="https://wa.me/919420873535"
 target="_blank">
-
 WhatsApp
-
 </a>
 
 <!-- FOOTER -->
 
 <div class="footer">
-
 © 2026 GeetaChaudhari
-
 </div>
 
 </body>
-
 </html>
