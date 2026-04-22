@@ -1,135 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GeetaChaudhari | Ethnic Wear</title>
+<title>GeetaChaudhari | Home</title>
 
 <style>
 
-/* RESET */
-
 body {
-  margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-  background:#FFF5E1;
+margin:0;
+font-family:Arial;
+background:#FFF5E1;
 }
 
-/* BANNER FIRST */
+/* MENU */
 
-.banner {
-  width:100%;
+.menu {
+background:#D4AF37;
+text-align:center;
+padding:15px;
 }
+
+.menu a {
+margin:0 20px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+}
+
+/* BANNER */
 
 .banner img {
-  width:100%;
-  height:auto;
-  display:block;
+width:100%;
+display:block;
 }
 
-/* NAVIGATION */
+/* CONTENT */
 
-nav {
-  background:#D4AF37;
-  text-align:center;
-  padding:14px;
+.home-text {
+text-align:center;
+padding:40px 20px;
 }
 
-nav a {
-  text-decoration:none;
-  color:black;
-  font-weight:bold;
-  margin:0 18px;
-  font-size:16px;
-}
-
-nav a:hover {
-  text-decoration:underline;
-}
-
-/* TITLE */
-
-.section-title {
-  text-align:center;
-  margin-top:40px;
-}
-
-.section-title h2 {
-  color:#800000;
-  font-size:32px;
-}
-
-.section-title p {
-  color:#555;
-}
-
-/* PRODUCTS */
-
-.products {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-  gap:20px;
-  padding:30px;
-}
-
-.product {
-  background:white;
-  border-radius:10px;
-  padding:15px;
-  text-align:center;
-  box-shadow:0 4px 8px rgba(0,0,0,0.1);
-}
-
-.product img {
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.product h3 {
-  color:#800000;
-  margin:12px 0 6px;
-}
-
-.product p {
-  font-weight:bold;
-}
-
-.whatsapp-btn {
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 16px;
-  background:#25D366;
-  color:white;
-  border-radius:6px;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-/* ABOUT + CONTACT */
-
-.about,
-.contact {
-  text-align:center;
-  padding:40px 20px;
-}
-
-.about h2,
-.contact h2 {
-  color:#800000;
-}
-
-/* FOOTER */
-
-footer {
-  background:#800000;
-  color:white;
-  text-align:center;
-  padding:15px;
-  margin-top:30px;
+.footer {
+background:#800000;
+color:white;
+text-align:center;
+padding:15px;
 }
 
 </style>
@@ -138,128 +57,42 @@ footer {
 
 <body>
 
-<!-- BANNER FIRST -->
+<!-- BANNER -->
 
-<section class="banner">
-<img src="banner.jpg" alt="GeetaChaudhari Banner">
-</section>
+<div class="banner">
+<img src="banner.jpg">
+</div>
 
-<!-- NAVIGATION -->
+<!-- MENU -->
 
-<nav>
-<a href="#home">Home</a>
-<a href="#shop">Shop</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</nav>
+<div class="menu">
 
-<!-- TITLE -->
+<a href="index.html">Home</a>
+<a href="shop.html">Shop</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
 
-<div class="section-title" id="home">
+</div>
 
-<h2>Elegant Ethnic Wear Collection</h2>
+<!-- HOME CONTENT -->
+
+<div class="home-text">
+
+<h2 style="color:#800000;">
+Welcome to GeetaChaudhari
+</h2>
 
 <p>
-Handcrafted designs made with love.
+Elegant ethnic wear crafted with love.
 </p>
 
 </div>
 
-<!-- PRODUCTS -->
+<div class="footer">
 
-<section class="products" id="shop">
+© 2026 GeetaChaudhari
 
-<div class="product">
-<img src="saree.jpg">
-<h3>Lotus Saree</h3>
-<p>₹2499</p>
-<a class="whatsapp-btn"
-href="https://wa.me/919420873535">
-Order on WhatsApp
-</a>
 </div>
-
-<div class="product">
-<img src="salwar.jpg">
-<h3>Elegant Salwar Suit</h3>
-<p>₹1999</p>
-<a class="whatsapp-btn"
-href="https://wa.me/919420873535">
-Order on WhatsApp
-</a>
-</div>
-
-<div class="product">
-<img src="lehenga.jpg">
-<h3>Royal Lehenga</h3>
-<p>₹4999</p>
-<a class="whatsapp-btn"
-href="https://wa.me/919420873535">
-Order on WhatsApp
-</a>
-</div>
-
-<div class="product">
-<img src="anarkali.jpg">
-<h3>Classic Anarkali</h3>
-<p>₹2999</p>
-<a class="whatsapp-btn"
-href="https://wa.me/919420873535">
-Order on WhatsApp
-</a>
-</div>
-
-<div class="product">
-<img src="kurti.jpg">
-<h3>Daily Wear Kurti</h3>
-<p>₹999</p>
-<a class="whatsapp-btn"
-href="https://wa.me/919420873535">
-Order on WhatsApp
-</a>
-</div>
-
-</section>
-
-<!-- ABOUT -->
-
-<section class="about" id="about">
-
-<h2>About Us</h2>
-
-<p>
-GeetaChaudhari is a boutique brand dedicated to creating elegant and timeless ethnic wear.
-Each piece blends tradition with modern fashion.
-</p>
-
-</section>
-
-<!-- CONTACT -->
-
-<section class="contact" id="contact">
-
-<h2>Contact Us</h2>
-
-<p>
-WhatsApp: +91 9420873535
-</p>
-
-<p>
-Email: geetachaudhari@gmail.com
-</p>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-
-<p>
-© 2026 GeetaChaudhari | All Rights Reserved
-</p>
-
-</footer>
 
 </body>
-
 </html>
