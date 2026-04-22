@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,8 +12,15 @@
 
 body {
 margin:0;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#FFF5E1;
+}
+
+/* BANNER */
+
+.banner img {
+width:100%;
+display:block;
 }
 
 /* MENU */
@@ -30,25 +38,57 @@ color:black;
 font-weight:bold;
 }
 
-/* BANNER */
+/* HOME TEXT */
 
-.banner img {
-width:100%;
-display:block;
-}
-
-/* CONTENT */
-
-.home-text {
+.home {
 text-align:center;
 padding:40px 20px;
 }
+
+.home h2 {
+color:#800000;
+}
+
+/* FEATURE SECTION */
+
+.features {
+display:flex;
+justify-content:center;
+gap:40px;
+padding:30px;
+flex-wrap:wrap;
+}
+
+.feature {
+background:white;
+padding:20px;
+border-radius:10px;
+width:220px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* FLOAT WHATSAPP */
+
+.float-whatsapp {
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:14px 18px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* FOOTER */
 
 .footer {
 background:#800000;
 color:white;
 text-align:center;
 padding:15px;
+margin-top:40px;
 }
 
 </style>
@@ -60,7 +100,9 @@ padding:15px;
 <!-- BANNER -->
 
 <div class="banner">
+
 <img src="banner.jpg">
+
 </div>
 
 <!-- MENU -->
@@ -74,19 +116,49 @@ padding:15px;
 
 </div>
 
-<!-- HOME CONTENT -->
+<!-- HOME TEXT -->
 
-<div class="home-text">
+<div class="home">
 
-<h2 style="color:#800000;">
-Welcome to GeetaChaudhari
-</h2>
+<h2>Welcome to GeetaChaudhari</h2>
 
 <p>
-Elegant ethnic wear crafted with love.
+Discover handcrafted ethnic wear designed with elegance and tradition.
 </p>
 
 </div>
+
+<!-- FEATURES -->
+
+<div class="features">
+
+<div class="feature">
+<h3>Premium Quality</h3>
+<p>Carefully designed fabrics</p>
+</div>
+
+<div class="feature">
+<h3>Secure Shopping</h3>
+<p>Trusted WhatsApp ordering</p>
+</div>
+
+<div class="feature">
+<h3>Fast Delivery</h3>
+<p>Shipping across India</p>
+</div>
+
+</div>
+
+<!-- FLOAT WHATSAPP -->
+
+<a class="float-whatsapp"
+href="https://wa.me/919420873535">
+
+WhatsApp
+
+</a>
+
+<!-- FOOTER -->
 
 <div class="footer">
 
@@ -95,4 +167,5 @@ Elegant ethnic wear crafted with love.
 </div>
 
 </body>
+
 </html>
