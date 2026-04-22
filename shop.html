@@ -170,9 +170,20 @@ cursor:pointer;
 z-index:1000;
 }
 
+.cart-overlay {
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+z-index:998;
+}
+
 .cart-panel {
 position:fixed;
-right:-380px; /* completely hide panel */
+right:-380px;
 top:0;
 width:350px;
 height:100%;
@@ -181,12 +192,12 @@ padding:20px;
 transition:0.3s;
 overflow-y:auto;
 z-index:999;
-box-shadow:none; /* hide shadow when closed */
+box-shadow:none;
 }
 
 .cart-panel.open {
 right:0;
-box-shadow:-4px 0 10px rgba(0,0,0,0.3); /* shadow only when open */
+box-shadow:-4px 0 10px rgba(0,0,0,0.3);
 }
 
 .cart-panel.open {
@@ -317,7 +328,22 @@ renderCart();
 }
 
 function toggleCart(){
-document.getElementById("cart-panel").classList.toggle("open");
+let panel=document.getElementById("cart-panel");
+let overlay=document.getElementById("cart-overlay");
+
+panel.classList.toggle("open");
+
+if(panel.classList.contains("open")){
+overlay.style.display="block";
+}
+else{
+overlay.style.display="none";
+}
+}
+
+function closeCart(){
+document.getElementById("cart-panel").classList.remove("open");
+document.getElementById("cart-overlay").style.display="none";
 }
 
 window.onload=renderCart;
@@ -409,6 +435,9 @@ Add to Cart
 </div>
 
 </div>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
 
 <!-- CART PANEL -->
 <div id="cart-panel" class="cart-panel">
