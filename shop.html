@@ -84,17 +84,7 @@ color:#800000;
 margin-top:5px;
 }
 
-.add-cart {
-background:#800000;
-color:white;
-padding:10px 15px;
-border:none;
-border-radius:6px;
-margin-top:10px;
-cursor:pointer;
-}
-
-/* IMAGE POPUP MODAL */
+/* MODAL */
 .modal {
 display:none;
 position:fixed;
@@ -114,6 +104,7 @@ border-radius:10px;
 width:90%;
 max-width:600px;
 text-align:center;
+position:relative;
 }
 
 .modal-img {
@@ -123,28 +114,11 @@ object-fit:contain;
 border-radius:8px;
 }
 
-.thumbnail-row {
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:10px;
-}
-
-.thumbnail-row img {
-width:60px;
-height:60px;
-object-fit:cover;
-cursor:pointer;
-border-radius:5px;
-}
-
 .close {
 position:absolute;
-top:20px;
-right:40px;
-color:white;
-font-size:40px;
-font-weight:bold;
+top:10px;
+right:15px;
+font-size:30px;
 cursor:pointer;
 }
 
@@ -153,15 +127,15 @@ margin-top:10px;
 padding:8px;
 }
 
+.fabric {
+margin-top:8px;
+font-size:14px;
+}
+
 .description {
 margin-top:10px;
 font-size:14px;
 color:#555;
-}
-
-.fabric {
-margin-top:8px;
-font-size:14px;
 }
 
 .review-box {
@@ -170,6 +144,17 @@ background:#f8f8f8;
 padding:10px;
 border-radius:6px;
 font-size:14px;
+}
+
+.add-cart-modal {
+background:#800000;
+color:white;
+padding:12px;
+border:none;
+border-radius:6px;
+margin-top:15px;
+cursor:pointer;
+width:100%;
 }
 
 /* CART */
@@ -182,6 +167,7 @@ color:white;
 padding:10px 15px;
 border-radius:50px;
 cursor:pointer;
+z-index:1000;
 }
 
 .cart-panel {
@@ -195,6 +181,7 @@ box-shadow:-4px 0 10px rgba(0,0,0,0.3);
 padding:20px;
 transition:0.3s;
 overflow-y:auto;
+z-index:999;
 }
 
 .cart-panel.open {
@@ -232,18 +219,6 @@ border-radius:6px;
 text-decoration:none;
 }
 
-.float-whatsapp {
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:14px 18px;
-border-radius:50px;
-text-decoration:none;
-font-weight:bold;
-}
-
 .footer {
 background:#800000;
 color:white;
@@ -255,60 +230,89 @@ padding:15px;
 
 <script>
 
-/* CART FUNCTIONS */
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let currentProduct = {};
 
-function addToCart(name, price) {
-cart.push({name, price});
-localStorage.setItem("cart", JSON.stringify(cart));
-renderCart();
+function openModal(name, price, img, desc, fabric, code){
+
+currentProduct = {name, price};
+
+document.getElementById("modal").style.display="block";
+
+document.getElementById("modal-img").src=img;
+document.getElementById("modal-desc").innerText=desc;
+document.getElementById("modal-fabric").innerText=fabric;
+document.getElementById("modal-code").innerText=code;
+
 }
 
-function removeItem(index) {
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+function addToCartFromModal(){
+
+let size=document.getElementById("size").value;
+let qty=document.getElementById("qty").value;
+
+if(size==="Select Size"){
+alert("Please select size");
+return;
+}
+
+for(let i=0;i<qty;i++){
+cart.push({
+name: currentProduct.name + " ("+size+")",
+price: currentProduct.price
+});
+}
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+renderCart();
+
+closeModal();
+
+}
+
+function renderCart(){
+
+let cartList=document.getElementById("cart-items");
+let total=0;
+
+cartList.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+let div=document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+<b>${item.name}</b><br>
+₹${item.price}
+<br>
+<button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+`;
+
+cartList.appendChild(div);
+
+total+=item.price;
+
+});
+
+document.getElementById("total").innerText="Total: ₹"+total;
+
+}
+
+function removeItem(index){
 cart.splice(index,1);
 localStorage.setItem("cart", JSON.stringify(cart));
 renderCart();
 }
 
-function renderCart() {
-let cartList=document.getElementById("cart-items");
-let total=0;
-cartList.innerHTML="";
-
-cart.forEach((item,index)=>{
-let div=document.createElement("div");
-div.className="cart-item";
-
-div.innerHTML=`<b>${item.name}</b><br>₹${item.price}<br>
-<button class="remove-btn" onclick="removeItem(${index})">Remove</button>`;
-
-cartList.appendChild(div);
-
-total+=item.price;
-});
-
-document.getElementById("total").innerText="Total: ₹"+total;
-}
-
 function toggleCart(){
 document.getElementById("cart-panel").classList.toggle("open");
-}
-
-/* IMAGE POPUP */
-function openModal(src, desc, fabric, code){
-document.getElementById("modal").style.display="block";
-document.getElementById("modal-img").src=src;
-document.getElementById("modal-desc").innerText=desc;
-document.getElementById("modal-fabric").innerText=fabric;
-document.getElementById("modal-code").innerText=code;
-}
-
-function changeImage(src){
-document.getElementById("modal-img").src=src;
-}
-
-function closeModal(){
-document.getElementById("modal").style.display="none";
 }
 
 window.onload=renderCart;
@@ -331,62 +335,51 @@ window.onload=renderCart;
 <p>Browse our handcrafted ethnic wear</p>
 </div>
 
-<!-- CART ICON -->
 <div class="cart-icon" onclick="toggleCart()">Cart 🛒</div>
 
 <div class="products">
 
 <div class="card">
 <span class="new-tag">NEW</span>
-<img src="saree.jpg" onclick="openModal('saree.jpg','Elegant festive saree design.','Fabric: Cotton Silk | Care: Dry Clean','Code: GC-SAR-001')">
+<img src="saree.jpg" onclick="openModal('Lotus Saree',2499,'saree.jpg','Elegant festive saree design.','Fabric: Cotton Silk | Care: Dry Clean','Code: GC-SAR-001')">
 <h3>Lotus Saree</h3>
 <div class="price">₹2499</div>
 <div class="product-code">Code: GC-SAR-001</div>
-<button class="add-cart" onclick="addToCart('Lotus Saree',2499)">Add to Cart</button>
 </div>
 
 <div class="card">
-<img src="salwar.jpg" onclick="openModal('salwar.jpg','Comfortable stylish salwar.','Fabric: Rayon | Care: Gentle Wash','Code: GC-SAL-002')">
+<img src="salwar.jpg" onclick="openModal('Salwar Suit',1999,'salwar.jpg','Comfortable stylish salwar.','Fabric: Rayon | Care: Gentle Wash','Code: GC-SAL-002')">
 <h3>Salwar Suit</h3>
 <div class="price">₹1999</div>
 <div class="product-code">Code: GC-SAL-002</div>
-<button class="add-cart" onclick="addToCart('Salwar Suit',1999)">Add to Cart</button>
 </div>
 
 <div class="card">
-<img src="lehenga.jpg" onclick="openModal('lehenga.jpg','Royal wedding lehenga.','Fabric: Velvet | Care: Dry Clean','Code: GC-LEH-003')">
+<img src="lehenga.jpg" onclick="openModal('Royal Lehenga',4999,'lehenga.jpg','Royal wedding lehenga.','Fabric: Velvet | Care: Dry Clean','Code: GC-LEH-003')">
 <h3>Royal Lehenga</h3>
 <div class="price">₹4999</div>
 <div class="product-code">Code: GC-LEH-003</div>
-<button class="add-cart" onclick="addToCart('Royal Lehenga',4999)">Add to Cart</button>
 </div>
 
 <div class="card">
-<img src="kurti.jpg" onclick="openModal('kurti.jpg','Daily comfortable kurti.','Fabric: Cotton | Care: Machine Wash','Code: GC-KUR-004')">
+<img src="kurti.jpg" onclick="openModal('Daily Kurti',999,'kurti.jpg','Daily comfortable kurti.','Fabric: Cotton | Care: Machine Wash','Code: GC-KUR-004')">
 <h3>Daily Kurti</h3>
 <div class="price">₹999</div>
 <div class="product-code">Code: GC-KUR-004</div>
-<button class="add-cart" onclick="addToCart('Daily Kurti',999)">Add to Cart</button>
 </div>
 
 </div>
 
 <!-- MODAL -->
 <div id="modal" class="modal">
-<span class="close" onclick="closeModal()">&times;</span>
 
 <div class="modal-content">
 
+<span class="close" onclick="closeModal()">&times;</span>
+
 <img class="modal-img" id="modal-img">
 
-<div class="thumbnail-row">
-<img src="saree.jpg" onclick="changeImage(this.src)">
-<img src="salwar.jpg" onclick="changeImage(this.src)">
-<img src="lehenga.jpg" onclick="changeImage(this.src)">
-<img src="kurti.jpg" onclick="changeImage(this.src)">
-</div>
-
-<select class="select-box">
+<select id="size" class="select-box">
 <option>Select Size</option>
 <option>S</option>
 <option>M</option>
@@ -394,7 +387,7 @@ window.onload=renderCart;
 <option>XL</option>
 </select>
 
-<input class="quantity" type="number" value="1" min="1">
+<input id="qty" class="quantity" type="number" value="1" min="1">
 
 <p id="modal-code" class="product-code"></p>
 <p id="modal-fabric" class="fabric"></p>
@@ -404,7 +397,12 @@ window.onload=renderCart;
 ⭐⭐⭐⭐⭐ "Beautiful quality and elegant design!"
 </div>
 
+<button class="add-cart-modal" onclick="addToCartFromModal()">
+Add to Cart
+</button>
+
 </div>
+
 </div>
 
 <!-- CART PANEL -->
@@ -413,10 +411,11 @@ window.onload=renderCart;
 <div id="cart-items"></div>
 <div id="total" class="total"></div>
 
-<a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-</div>
+<a href="checkout.html" class="checkout-btn">
+Proceed to Checkout
+</a>
 
-<a class="float-whatsapp" href="https://wa.me/919420873535" target="_blank">WhatsApp</a>
+</div>
 
 <div class="footer">© 2026 GeetaChaudhari</div>
 
