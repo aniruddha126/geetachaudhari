@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -16,6 +17,7 @@ background:#FFF5E1;
 }
 
 /* MENU */
+
 .menu {
 background:#D4AF37;
 text-align:center;
@@ -30,6 +32,7 @@ font-weight:bold;
 }
 
 /* PAGE TITLE */
+
 .page-title {
 text-align:center;
 padding:30px 20px 10px;
@@ -40,6 +43,7 @@ color:#800000;
 }
 
 /* PRODUCTS */
+
 .products {
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -61,10 +65,8 @@ width:100%;
 height:320px;
 object-fit:cover;
 border-radius:8px;
-cursor:pointer;
 }
 
-/* NEW TAG */
 .new-tag {
 position:absolute;
 top:10px;
@@ -81,97 +83,91 @@ font-weight:bold;
 margin-top:5px;
 }
 
-/* STOCK */
-.stock {
+.product-code {
 font-size:13px;
+color:#800000;
 margin-top:5px;
 }
 
-.in-stock {
-color:green;
-}
+/* ADD CART */
 
-.out-stock {
-color:red;
-}
-
-.whatsapp {
-background:#25D366;
+.add-cart {
+background:#800000;
 color:white;
 padding:10px 15px;
-display:inline-block;
+border:none;
+border-radius:6px;
 margin-top:10px;
+cursor:pointer;
+}
+
+/* CART ICON */
+
+.cart-icon {
+position:fixed;
+top:20px;
+right:20px;
+background:#800000;
+color:white;
+padding:10px 15px;
+border-radius:50px;
+cursor:pointer;
+}
+
+/* CART PANEL */
+
+.cart-panel {
+position:fixed;
+right:-350px;
+top:0;
+width:350px;
+height:100%;
+background:white;
+box-shadow:-4px 0 10px rgba(0,0,0,0.3);
+padding:20px;
+transition:0.3s;
+overflow-y:auto;
+}
+
+.cart-panel.open {
+right:0;
+}
+
+.cart-item {
+border-bottom:1px solid #ddd;
+padding:10px 0;
+}
+
+.remove-btn {
+background:red;
+color:white;
+border:none;
+padding:5px 8px;
+border-radius:4px;
+cursor:pointer;
+margin-top:5px;
+}
+
+.total {
+font-weight:bold;
+margin-top:15px;
+}
+
+/* CHECKOUT BUTTON */
+
+.checkout-btn {
+display:block;
+background:#800000;
+color:white;
+padding:12px;
+text-align:center;
+margin-top:15px;
 border-radius:6px;
 text-decoration:none;
 }
 
-/* MODAL */
-.modal {
-display:none;
-position:fixed;
-z-index:999;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-}
-
-.modal-content {
-background:white;
-margin:5% auto;
-padding:20px;
-border-radius:10px;
-width:90%;
-max-width:600px;
-text-align:center;
-}
-
-.modal-img {
-width:100%;
-max-height:400px;
-object-fit:contain;
-border-radius:8px;
-}
-
-.thumbnail-row {
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:10px;
-}
-
-.thumbnail-row img {
-width:60px;
-height:60px;
-object-fit:cover;
-cursor:pointer;
-border-radius:5px;
-}
-
-.close {
-position:absolute;
-top:20px;
-right:40px;
-color:white;
-font-size:40px;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* SIZE SELECT */
-.size-select {
-margin-top:15px;
-padding:8px;
-}
-
-.description {
-margin-top:10px;
-font-size:14px;
-color:#555;
-}
-
 /* FLOAT WHATSAPP */
+
 .float-whatsapp {
 position:fixed;
 bottom:20px;
@@ -185,6 +181,7 @@ font-weight:bold;
 }
 
 /* FOOTER */
+
 .footer {
 background:#800000;
 color:white;
@@ -196,25 +193,91 @@ padding:15px;
 
 <script>
 
-function openModal(src, desc) {
+/* CART STORAGE */
 
-let modal=document.getElementById("modal");
-let modalImg=document.getElementById("modal-img");
-let modalDesc=document.getElementById("modal-desc");
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-modal.style.display="block";
-modalImg.src=src;
-modalDesc.innerText=desc;
+/* ADD TO CART */
+
+function addToCart(name, price) {
+
+cart.push({name, price});
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+renderCart();
 
 }
 
-function changeImage(src) {
-document.getElementById("modal-img").src=src;
+/* REMOVE */
+
+function removeItem(index) {
+
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+renderCart();
+
 }
 
-function closeModal() {
-document.getElementById("modal").style.display="none";
+/* RENDER */
+
+function renderCart() {
+
+let cartList = document.getElementById("cart-items");
+
+let total = 0;
+
+cartList.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+let div=document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+
+<b>${item.name}</b><br>
+
+₹${item.price}
+
+<br>
+
+<button class="remove-btn"
+
+onclick="removeItem(${index})">
+
+Remove
+
+</button>
+
+`;
+
+cartList.appendChild(div);
+
+total += item.price;
+
+});
+
+document.getElementById("total")
+
+.innerText="Total: ₹"+total;
+
 }
+
+/* TOGGLE */
+
+function toggleCart() {
+
+document.getElementById("cart-panel")
+
+.classList.toggle("open");
+
+}
+
+window.onload = renderCart;
 
 </script>
 
@@ -225,17 +288,32 @@ document.getElementById("modal").style.display="none";
 <!-- MENU -->
 
 <div class="menu">
+
 <a href="index.html">Home</a>
 <a href="shop.html">Shop</a>
 <a href="about.html">About</a>
 <a href="contact.html">Contact</a>
+
 </div>
 
 <!-- TITLE -->
 
 <div class="page-title">
+
 <h1>Our Collection</h1>
+
 <p>Browse our handcrafted ethnic wear</p>
+
+</div>
+
+<!-- CART ICON -->
+
+<div class="cart-icon"
+
+onclick="toggleCart()">
+
+Cart 🛒
+
 </div>
 
 <!-- PRODUCTS -->
@@ -243,96 +321,149 @@ document.getElementById("modal").style.display="none";
 <div class="products">
 
 <div class="card">
+
 <span class="new-tag">NEW</span>
-<img src="saree.jpg"
-onclick="openModal('saree.jpg','Elegant lotus-inspired saree perfect for festive wear.')">
+
+<img src="saree.jpg">
+
 <h3>Lotus Saree</h3>
+
 <div class="price">₹2499</div>
-<div class="stock in-stock">In Stock</div>
-<a class="whatsapp"
-href="https://wa.me/919420873535"
-target="_blank">Order</a>
+
+<div class="product-code">
+
+Code: GC-SAR-001
+
+</div>
+
+<button class="add-cart"
+
+onclick="addToCart('Lotus Saree',2499)">
+
+Add to Cart
+
+</button>
+
 </div>
 
 <div class="card">
-<img src="salwar.jpg"
-onclick="openModal('salwar.jpg','Comfortable salwar suit suitable for daily and festive wear.')">
+
+<img src="salwar.jpg">
+
 <h3>Salwar Suit</h3>
+
 <div class="price">₹1999</div>
-<div class="stock in-stock">In Stock</div>
-<a class="whatsapp"
-href="https://wa.me/919420873535"
-target="_blank">Order</a>
+
+<div class="product-code">
+
+Code: GC-SAL-002
+
+</div>
+
+<button class="add-cart"
+
+onclick="addToCart('Salwar Suit',1999)">
+
+Add to Cart
+
+</button>
+
 </div>
 
 <div class="card">
-<img src="lehenga.jpg"
-onclick="openModal('lehenga.jpg','Royal lehenga designed for weddings and grand occasions.')">
+
+<img src="lehenga.jpg">
+
 <h3>Royal Lehenga</h3>
+
 <div class="price">₹4999</div>
-<div class="stock out-stock">Limited Stock</div>
-<a class="whatsapp"
-href="https://wa.me/919420873535"
-target="_blank">Order</a>
+
+<div class="product-code">
+
+Code: GC-LEH-003
+
+</div>
+
+<button class="add-cart"
+
+onclick="addToCart('Royal Lehenga',4999)">
+
+Add to Cart
+
+</button>
+
 </div>
 
 <div class="card">
-<img src="kurti.jpg"
-onclick="openModal('kurti.jpg','Daily wear kurti offering comfort and style.')">
+
+<img src="kurti.jpg">
+
 <h3>Daily Kurti</h3>
+
 <div class="price">₹999</div>
-<div class="stock in-stock">In Stock</div>
-<a class="whatsapp"
-href="https://wa.me/919420873535"
-target="_blank">Order</a>
+
+<div class="product-code">
+
+Code: GC-KUR-004
+
+</div>
+
+<button class="add-cart"
+
+onclick="addToCart('Daily Kurti',999)">
+
+Add to Cart
+
+</button>
+
 </div>
 
 </div>
 
-<!-- MODAL -->
+<!-- CART PANEL -->
 
-<div id="modal" class="modal">
+<div id="cart-panel"
 
-<span class="close" onclick="closeModal()">&times;</span>
+class="cart-panel">
 
-<div class="modal-content">
+<h2>Your Cart</h2>
 
-<img class="modal-img" id="modal-img">
+<div id="cart-items"></div>
 
-<div class="thumbnail-row">
-<img src="saree.jpg" onclick="changeImage(this.src)">
-<img src="salwar.jpg" onclick="changeImage(this.src)">
-<img src="lehenga.jpg" onclick="changeImage(this.src)">
-<img src="kurti.jpg" onclick="changeImage(this.src)">
-</div>
+<div id="total" class="total"></div>
 
-<select class="size-select">
-<option>Select Size</option>
-<option>S</option>
-<option>M</option>
-<option>L</option>
-<option>XL</option>
-</select>
+<!-- CONNECTED CHECKOUT -->
 
-<p id="modal-desc" class="description"></p>
+<a href="checkout.html"
 
-</div>
+class="checkout-btn">
+
+Proceed to Checkout
+
+</a>
 
 </div>
 
 <!-- FLOAT WHATSAPP -->
 
 <a class="float-whatsapp"
+
 href="https://wa.me/919420873535"
+
 target="_blank">
+
 WhatsApp
+
 </a>
 
 <!-- FOOTER -->
 
 <div class="footer">
+
 © 2026 GeetaChaudhari
+
 </div>
 
 </body>
+
 </html>
