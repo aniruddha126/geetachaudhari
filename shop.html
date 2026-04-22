@@ -172,16 +172,21 @@ z-index:1000;
 
 .cart-panel {
 position:fixed;
-right:-350px;
+right:-380px; /* completely hide panel */
 top:0;
 width:350px;
 height:100%;
 background:white;
-box-shadow:-4px 0 10px rgba(0,0,0,0.3);
 padding:20px;
 transition:0.3s;
 overflow-y:auto;
 z-index:999;
+box-shadow:none; /* hide shadow when closed */
+}
+
+.cart-panel.open {
+right:0;
+box-shadow:-4px 0 10px rgba(0,0,0,0.3); /* shadow only when open */
 }
 
 .cart-panel.open {
